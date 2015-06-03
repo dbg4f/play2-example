@@ -5,12 +5,14 @@ import play.api.libs.json._
 import play.api.libs.functional.syntax._
 import models.Place
 import models.Location
+import models.User
 
 class Application extends Controller {
 
   def index = Action {
     Ok(views.html.index("Your new application is ready."))
   }
+
 
   implicit val locationWrites: Writes[Location] = (
     (JsPath \ "lat").write[Double] and
@@ -52,6 +54,16 @@ class Application extends Controller {
     )
   }
 
+
+
+  implicit val userWrites: Writes[User] = (
+    (JsPath \ "name").write[String]
+    )(unlift(Place.unapply))
+
+  def userList = Action {
+    val json = Json.toJson(Place.list)
+    Ok(json)
+  }
 
 
 
