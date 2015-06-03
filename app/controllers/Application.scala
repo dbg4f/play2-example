@@ -28,8 +28,6 @@ class Application extends Controller {
   }
 
 
-
-
   implicit val locationReads: Reads[Location] = (
     (JsPath \ "lat").read[Double] and
       (JsPath \ "long").read[Double]
@@ -45,7 +43,7 @@ class Application extends Controller {
     val placeResult = request.body.validate[Place]
     placeResult.fold(
       errors => {
-        BadRequest(Json.obj("status" ->"KO", "message" -> JsError.toFlatJson(errors)))
+        BadRequest(Json.obj("status" ->"KO", "message" -> JsError.toJson(errors)))
       },
       place => {
         Place.save(place)

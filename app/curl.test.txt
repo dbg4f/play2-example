@@ -1,0 +1,6 @@
+
+curl --include http://localhost:9000/places
+
+curl --include --request POST --header "Content-type: application/json"  --data '{"name":"Nuthanger Farm","location":{"lat" : 51.244031,"long" : -1.263224}}'  http://localhost:9000/places
+
+curl --include  --request POST  --header "Content-type: application/json"  --data '{"name":"Nuthanger Farm","location":{"lat" : "xxx","long" : -1.263224}}'  http://localhost:9000/places

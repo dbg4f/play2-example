@@ -23,3 +23,7 @@ object Place {
     list = list ::: List(place)
   }
 }
+
+
+
+
