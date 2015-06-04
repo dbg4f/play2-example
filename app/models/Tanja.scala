@@ -1,14 +1,13 @@
 package models
 
-case class User(name: String)
-
+case class User(firstname: String, lastname: String)
 
 object User {
 
   var list: List[User] = {
     List(
-      User("User1"),
-      User("User2")
+      User("First1", "Last1"),
+      User("User2", "Last2")
     )
   }
 
@@ -16,7 +15,3 @@ object User {
     list = list ::: List(user)
   }
 }
-
-
-
-

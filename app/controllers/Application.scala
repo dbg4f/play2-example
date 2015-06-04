@@ -57,11 +57,13 @@ class Application extends Controller {
 
 
   implicit val userWrites: Writes[User] = (
-    (JsPath \ "name").write[String]
-    )(unlift(Place.unapply))
+    (JsPath \ "firstname").write[String] and
+      (JsPath \ "lastname").write[String]
+    )(unlift(User.unapply))
+
 
   def userList = Action {
-    val json = Json.toJson(Place.list)
+    val json = Json.toJson(User.list)
     Ok(json)
   }
 
