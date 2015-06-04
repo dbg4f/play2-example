@@ -67,6 +67,24 @@ class Application extends Controller {
     Ok(json)
   }
 
+  implicit val userReads: Reads[User] = (
+    (JsPath \ "firstname").read[String] and
+      (JsPath \ "lastname").read[String]
+    )(User.apply _)
+
+
+  def saveUser = Action(BodyParsers.parse.json) { request =>
+    val userResult = request.body.validate[User]
+    userResult.fold(
+      errors => {
+        BadRequest(Json.obj("status" ->"KO", "message" -> JsError.toJson(errors)))
+      },
+      user => {
+        User.save(user)
+        Ok(Json.obj("status" ->"OK", "message" -> ("User '"+user+"' saved.") ))
+      }
+    )
+  }
 
 
 }
